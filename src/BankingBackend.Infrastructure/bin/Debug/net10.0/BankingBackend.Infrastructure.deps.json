@@ -1,0 +1,56 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "BankingBackend.Infrastructure/1.0.0": {
+        "dependencies": {
+          "BankingBackend.Application": "1.0.0",
+          "BankingBackend.Core": "1.0.0"
+        },
+        "runtime": {
+          "BankingBackend.Infrastructure.dll": {}
+        }
+      },
+      "BankingBackend.Application/1.0.0": {
+        "dependencies": {
+          "BankingBackend.Core": "1.0.0"
+        },
+        "runtime": {
+          "BankingBackend.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "BankingBackend.Core/1.0.0": {
+        "runtime": {
+          "BankingBackend.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BankingBackend.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BankingBackend.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BankingBackend.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

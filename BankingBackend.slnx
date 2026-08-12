@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BankingBackend.API/BankingBackend.API.csproj" />
+    <Project Path="src/BankingBackend.Application/BankingBackend.Application.csproj" />
+    <Project Path="src/BankingBackend.Core/BankingBackend.Core.csproj" />
+    <Project Path="src/BankingBackend.Infrastructure/BankingBackend.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BankingBackend.Tests.Integration/BankingBackend.Tests.Integration.csproj" />
+    <Project Path="tests/BankingBackend.Tests.Unit/BankingBackend.Tests.Unit.csproj" />
+  </Folder>
+</Solution>

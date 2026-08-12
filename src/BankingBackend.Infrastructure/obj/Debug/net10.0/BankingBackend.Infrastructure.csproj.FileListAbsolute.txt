@@ -1,0 +1,17 @@
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/bin/Debug/net10.0/BankingBackend.Infrastructure.deps.json
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/bin/Debug/net10.0/BankingBackend.Infrastructure.dll
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/bin/Debug/net10.0/BankingBackend.Infrastructure.pdb
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/bin/Debug/net10.0/BankingBackend.Application.dll
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/bin/Debug/net10.0/BankingBackend.Core.dll
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/bin/Debug/net10.0/BankingBackend.Core.pdb
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/bin/Debug/net10.0/BankingBackend.Application.pdb
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/obj/Debug/net10.0/BankingBackend.Infrastructure.csproj.AssemblyReference.cache
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/obj/Debug/net10.0/BankingBackend.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/obj/Debug/net10.0/BankingBackend.Infrastructure.AssemblyInfoInputs.cache
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/obj/Debug/net10.0/BankingBackend.Infrastructure.AssemblyInfo.cs
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/obj/Debug/net10.0/BankingBackend.Infrastructure.csproj.CoreCompileInputs.cache
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/obj/Debug/net10.0/BankingB.46E233D8.Up2Date
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/obj/Debug/net10.0/BankingBackend.Infrastructure.dll
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/obj/Debug/net10.0/refint/BankingBackend.Infrastructure.dll
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/obj/Debug/net10.0/BankingBackend.Infrastructure.pdb
+/home/henriqueacf/Github/hexbank/src/BankingBackend.Infrastructure/obj/Debug/net10.0/ref/BankingBackend.Infrastructure.dll
