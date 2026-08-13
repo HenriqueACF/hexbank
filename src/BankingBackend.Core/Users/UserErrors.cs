@@ -1,4 +1,6 @@
-namespace BankingBackend.Core.Common.Users;
+using BankingBackend.Core.Common;
+
+namespace BankingBackend.Core.Users;
 
 public static class EmailErrors
 {
@@ -18,5 +20,5 @@ public static class UserErrors
 {
     public static readonly Error PasswordHashEmpty = new("User.PasswordHashEmpty", "O hash de senha é obrigatório.");
     public static readonly Error AlreadyActive = new("User.AlreadyActive", "O usuárop já está ativo.");
-    public static readonly Error AlreadyInactive = new("USer.AlreadInactive", "o usuário já está inativo.");
+    public static readonly Error AlreadyInactive = new("User.AlreadInactive", "o usuário já está inativo.");
 }

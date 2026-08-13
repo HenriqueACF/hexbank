@@ -1,4 +1,3 @@
-using BankingBackend.Core.Common.Users;
 using BankingBackend.Core.Users;
 using FluentAssertions;
 

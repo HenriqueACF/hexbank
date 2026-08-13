@@ -1,4 +1,4 @@
-namespace BankingBackend.Core.Common.Users;
+namespace BankingBackend.Core.Users;
 
 public enum UserRole
 {

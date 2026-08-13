@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
+using BankingBackend.Core.Common;
 
-namespace BankingBackend.Core.Common.Users;
+namespace BankingBackend.Core.Users;
 
 public sealed class Email : ValueObject
 {
@@ -20,6 +21,9 @@ public sealed class Email : ValueObject
 
         if (normalized.Length > MaxLength)
             return Result.Failure<Email>(EmailErrors.TooLong);
+        
+        if (!Pattern.IsMatch(normalized))
+            return Result.Failure<Email>(EmailErrors.InvalidFormat);
 
         return new Email(normalized);
     }

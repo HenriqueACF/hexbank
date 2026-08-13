@@ -1,6 +1,8 @@
-namespace BankingBackend.Core.Common.Users;
+using BankingBackend.Core.Common;
 
-public class Cpf: ValueObject
+namespace BankingBackend.Core.Users;
+
+public  sealed class Cpf: ValueObject
 {
     private const int Length = 11;
     private Cpf(string value) => Value = value;

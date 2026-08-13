@@ -1,5 +1,4 @@
 using BankingBackend.Core.Common;
-using BankingBackend.Core.Common.Users;
 
 namespace BankingBackend.Core.Users;
 
