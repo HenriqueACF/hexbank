@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\BankingBackend.Core\BankingBackend.Core.csproj" />
     <ProjectReference Include="..\..\src\BankingBackend.Application\BankingBackend.Application.csproj" />
+    <ProjectReference Include="..\..\src\BankingBackend.Infrastructure\BankingBackend.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
