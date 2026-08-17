@@ -1,6 +1,3 @@
 namespace BankingBackend.Application.Users.Login;
 
-public class LoginResponse
-{
-    
-}
+public sealed record LoginResponse(string AccessToken);

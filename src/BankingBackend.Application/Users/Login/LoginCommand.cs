@@ -3,4 +3,4 @@ using MediatR;
 
 namespace BankingBackend.Application.Users.Login;
 
-public sealed record LoginComand(string Email, string Password) : IRequest<Result<LoginResponse>>;
+public sealed record LoginCommand(string Email, string Password) : IRequest<Result<LoginResponse>>;

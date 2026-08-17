@@ -7,6 +7,7 @@ using BankingBackend.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using BankingBackend.Application.Users.Login;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +48,7 @@ builder.Services
     });
 
 builder.Services.AddAuthorization();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(LoginCommand).Assembly));
 
 // ── API ────────────────────────────────────────
 builder.Services.AddControllers();

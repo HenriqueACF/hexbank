@@ -4,13 +4,13 @@ using MediatR;
 
 namespace BankingBackend.Application.Users.Login;
 
-public sealed class LoginCommandHandlers : IRequestHandler<LoginCommand, Result<LoginResponse>>
+public sealed class LoginCommandHandler : IRequestHandler<LoginCommand, Result<LoginResponse>>
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IJwtProvider _jwtProvider;
 
-    public LoginCommandHandlers(
+    public LoginCommandHandler(
         IUserRepository userRepository,
         IPasswordHasher passwordHasher,
         IJwtProvider jwtProvider)
@@ -20,7 +20,7 @@ public sealed class LoginCommandHandlers : IRequestHandler<LoginCommand, Result<
         _jwtProvider = jwtProvider;
     }
 
-    public Task<Result<LoginResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<Result<LoginResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         var emailResult = Email.Create(request.Email);
         if (emailResult.IsFailure)
