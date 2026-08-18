@@ -13,10 +13,12 @@ O objetivo não é o banco em si — é praticar separação de responsabilidade
 | 3 | Agregado `User`, ValueObjects `Cpf` e `Email` | ✅ |
 | 4 | Persistência (EF Core) + autenticação (bcrypt, JWT) | ✅ |
 | 5 | `POST /api/v1/auth/login` | ✅ |
-| 6 | Cadastro de usuário | ⏳ |
+| 6 | Cadastro de usuário (`POST /api/v1/auth/register`) | ✅ |
+| 7 | Agregado `Account`, ValueObject `Money` | ✅ |
+| 8 | Persistência de `Account` + endpoints (abrir conta, depósito, saque) | ⏳ |
 | — | Refresh token | ⏳ |
 
-69 testes automatizados, todos passando.
+93 testes automatizados, todos passando.
 
 ## Arquitetura
 
@@ -46,9 +48,12 @@ A seta aponta para quem se depende. `Core` não referencia nenhum outro projeto 
 src/
 ├── BankingBackend.Core            → Domain puro + ports
 │   ├── Common/                    → Entity, ValueObject, Result, Error, DomainEvent
-│   └── Users/                     → User, Cpf, Email, interfaces
+│   ├── Users/                     → User, Cpf, Email, interfaces
+│   └── Accounts/                  → Account, Money
 ├── BankingBackend.Application     → Casos de uso (handlers MediatR)
-│   └── Users/Login/
+│   └── Users/
+│       ├── Login/
+│       └── Register/
 ├── BankingBackend.Infrastructure  → EF Core, JWT, bcrypt
 │   ├── Authentication/
 │   └── Persistence/
