@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using BankingBackend.Application.Users.Login;
+using BankingBackend.Application.Users.Register;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +51,7 @@ builder.Services
 
 builder.Services.AddAuthorization();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(LoginCommand).Assembly));
+builder.Services.AddValidatorsFromAssembly(typeof(RegisterUserCommand).Assembly);
 
 // ── API ────────────────────────────────────────
 builder.Services.AddControllers();
