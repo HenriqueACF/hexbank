@@ -1,6 +1,7 @@
 namespace BankingBackend.Application.Accounts.Transfer;
 
-public class TransferResponse
-{
-    
-}
+public sealed record TransferResponse(
+    Guid FromAccountId,
+    Guid ToAccountId,
+    decimal Amount,
+    decimal FromBalance);

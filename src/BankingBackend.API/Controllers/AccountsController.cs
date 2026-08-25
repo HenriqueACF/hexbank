@@ -1,8 +1,9 @@
 using System.Security.Claims;
 using BankingBackend.Application.Accounts.Deposit;
 using BankingBackend.Application.Accounts.OpenAccount;
-using BankingBackend.Application.Accounts.WithDraw;
+using BankingBackend.Application.Accounts.Withdraw;
 using BankingBackend.Core.Common;
+using BankingBackend.Application.Accounts.Transfer;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -46,6 +47,18 @@ public sealed class AccountsController : ControllerBase
     {
         var result = await _sender.Send(
             command with { AccountId = accountId, UserId = GetCurrentUserId() },
+            cancellationToken);
+        return result.IsSuccess ? Ok(result.Value) : MapError(result.Error);
+    }
+    
+    [HttpPost("{fromAccountId:guid}/transfers")]
+    public async Task<IActionResult> Transfer(
+        Guid fromAccountId,
+        TransferCommand command,
+        CancellationToken cancellationToken)
+    {
+        var result = await _sender.Send(
+            command with { FromAccountId = fromAccountId, UserId = GetCurrentUserId() },
             cancellationToken);
         return result.IsSuccess ? Ok(result.Value) : MapError(result.Error);
     }

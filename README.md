@@ -16,9 +16,10 @@ O objetivo não é o banco em si — é praticar separação de responsabilidade
 | 6 | Cadastro de usuário (`POST /api/v1/auth/register`) | ✅ |
 | 7 | Agregado `Account`, ValueObject `Money` | ✅ |
 | 8 | Persistência de `Account` + endpoints (abrir conta, depósito, saque) | ✅ |
+| 9 | Transferência entre contas (domain service, atomicidade no `IUnitOfWork`) | ✅ |
 | — | Refresh token | ⏳ |
 
-93 testes automatizados, todos passando.
+122 testes automatizados, todos passando.
 
 ## Arquitetura
 
@@ -57,7 +58,8 @@ src/
 │   └── Accounts/
 │       ├── OpenAccount/
 │       ├── Deposit/
-│       └── Withdraw/
+│       ├── Withdraw/
+│       └── Transfer/
 ├── BankingBackend.Infrastructure  → EF Core, JWT, bcrypt
 │   ├── Authentication/
 │   └── Persistence/
