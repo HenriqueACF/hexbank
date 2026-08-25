@@ -1,3 +1,4 @@
+using BankingBackend.Core.Accounts;
 using BankingBackend.Core.Common;
 using BankingBackend.Core.Users;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ public sealed class ApplicationDbContext : DbContext, IUnitOfWork
     }
 
     public DbSet<User> Users => Set<User>();
+    public DbSet<Account> Accounts => Set<Account>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

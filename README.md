@@ -15,7 +15,7 @@ O objetivo não é o banco em si — é praticar separação de responsabilidade
 | 5 | `POST /api/v1/auth/login` | ✅ |
 | 6 | Cadastro de usuário (`POST /api/v1/auth/register`) | ✅ |
 | 7 | Agregado `Account`, ValueObject `Money` | ✅ |
-| 8 | Persistência de `Account` + endpoints (abrir conta, depósito, saque) | ⏳ |
+| 8 | Persistência de `Account` + endpoints (abrir conta, depósito, saque) | ✅ |
 | — | Refresh token | ⏳ |
 
 93 testes automatizados, todos passando.
@@ -49,14 +49,21 @@ src/
 ├── BankingBackend.Core            → Domain puro + ports
 │   ├── Common/                    → Entity, ValueObject, Result, Error, DomainEvent
 │   ├── Users/                     → User, Cpf, Email, interfaces
-│   └── Accounts/                  → Account, Money
+│   └── Accounts/                  → Account, Money, IAccountRepository
 ├── BankingBackend.Application     → Casos de uso (handlers MediatR)
-│   └── Users/
-│       ├── Login/
-│       └── Register/
+│   ├── Users/
+│   │   ├── Login/
+│   │   └── Register/
+│   └── Accounts/
+│       ├── OpenAccount/
+│       ├── Deposit/
+│       └── Withdraw/
 ├── BankingBackend.Infrastructure  → EF Core, JWT, bcrypt
 │   ├── Authentication/
 │   └── Persistence/
+│       ├── Configurations/        → Fluent API (User, Account)
+│       ├── Repositories/
+│       └── Migrations/
 └── BankingBackend.API             → Controllers, Program.cs
 
 tests/

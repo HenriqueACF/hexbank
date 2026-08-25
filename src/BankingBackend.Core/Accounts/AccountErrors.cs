@@ -19,4 +19,8 @@ public static class AccountErrors
     public static readonly Error AlreadyActive = new("Account.AlreadActive", "Está conta já está ativa.");
 
     public static readonly Error AlreadyInactive = new("Account.AlreadyInactive", "Esta conta está inativa.");
+
+    public static readonly Error NotFound = new("Account.NotFound", "Conta não encontrada.");
+
+    public static readonly Error NotOwner = new("Account.NotOwner", "Você não é o dono desta conta.");
 }
