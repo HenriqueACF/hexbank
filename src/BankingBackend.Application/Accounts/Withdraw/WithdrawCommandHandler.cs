@@ -1,4 +1,3 @@
-using BankingBackend.Application.Accounts.WithDraw;
 using BankingBackend.Core.Accounts;
 using BankingBackend.Core.Common;
 using FluentValidation;

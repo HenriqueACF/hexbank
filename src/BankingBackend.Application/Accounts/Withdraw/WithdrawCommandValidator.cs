@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace BankingBackend.Application.Accounts.WithDraw;
+namespace BankingBackend.Application.Accounts.Withdraw;
 
 public sealed class WithdrawCommandValidator : AbstractValidator<WithdrawCommand>
 {
