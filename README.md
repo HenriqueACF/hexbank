@@ -19,7 +19,7 @@ O objetivo não é o banco em si — é praticar separação de responsabilidade
 | 9 | Transferência entre contas (domain service, atomicidade no `IUnitOfWork`) | ✅ |
 | 10 | Refresh token (`POST /api/v1/auth/refresh`, rotação e revogação) | ✅ |
 
-131 testes automatizados, todos passando.
+137 testes automatizados (131 unit + 6 integração), todos passando.
 
 ## Arquitetura
 
