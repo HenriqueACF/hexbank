@@ -13,19 +13,25 @@ public sealed class RegisterUserCommandHandler
     private readonly IJwtProvider _jwtProvider;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IValidator<RegisterUserCommand> _validator;
+    private readonly IRefreshTokenProvider _refreshTokenProvider;
+    private readonly IRefreshTokenRepository _refreshTokenRepository;
 
     public RegisterUserCommandHandler(
         IUserRepository userRepository,
         IPasswordHasher passwordHasher,
         IJwtProvider jwtProvider,
         IUnitOfWork unitOfWork,
-        IValidator<RegisterUserCommand> validator)
+        IValidator<RegisterUserCommand> validator,
+        IRefreshTokenProvider refreshTokenProvider,
+        IRefreshTokenRepository refreshTokenRepository)
     {
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
         _jwtProvider = jwtProvider;
         _unitOfWork = unitOfWork;
         _validator = validator;
+        _refreshTokenProvider = refreshTokenProvider;
+        _refreshTokenRepository = refreshTokenRepository;
     }
 
     public async Task<Result<RegisterUserResponse>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -58,10 +64,14 @@ public sealed class RegisterUserCommandHandler
 
         var user = userResult.Value;
         _userRepository.Add(user);
+
+        var refreshToken = _refreshTokenProvider.Create(user.Id);
+        _refreshTokenRepository.Add(refreshToken);
+        
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         var accessToken = _jwtProvider.Generate(user);
 
-        return new RegisterUserResponse(user.Id, accessToken);
+        return new RegisterUserResponse(user.Id, accessToken, refreshToken.Value.ToString());
     }
 }

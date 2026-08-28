@@ -14,6 +14,7 @@ public sealed class ApplicationDbContext : DbContext, IUnitOfWork
 
     public DbSet<User> Users => Set<User>();
     public DbSet<Account> Accounts => Set<Account>();
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

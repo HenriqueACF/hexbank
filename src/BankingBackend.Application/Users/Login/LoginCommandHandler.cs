@@ -9,15 +9,24 @@ public sealed class LoginCommandHandler : IRequestHandler<LoginCommand, Result<L
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IJwtProvider _jwtProvider;
+    private readonly IRefreshTokenProvider _refreshTokenProvider;
+    private readonly IRefreshTokenRepository _refreshTokenRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
     public LoginCommandHandler(
         IUserRepository userRepository,
         IPasswordHasher passwordHasher,
-        IJwtProvider jwtProvider)
+        IJwtProvider jwtProvider,
+        IRefreshTokenProvider refreshTokenProvider,
+        IRefreshTokenRepository refreshTokenRepository,
+        IUnitOfWork unitOfWork)
     {
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
         _jwtProvider = jwtProvider;
+        _refreshTokenProvider = refreshTokenProvider;
+        _refreshTokenRepository = refreshTokenRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Result<LoginResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -38,6 +47,11 @@ public sealed class LoginCommandHandler : IRequestHandler<LoginCommand, Result<L
             return Result.Failure<LoginResponse>(AuthErrors.InactiveAccount);
 
         var accessToken = _jwtProvider.Generate(user);
-        return new LoginResponse(accessToken);
+
+        var refreshToken = _refreshTokenProvider.Create(user.Id);
+        _refreshTokenRepository.Add(refreshToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        
+        return new LoginResponse(accessToken, refreshToken.Value.ToString());
     }
 }

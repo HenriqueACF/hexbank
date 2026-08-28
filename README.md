@@ -1,6 +1,6 @@
 # HexBank
 
-Backend bancário construído como projeto de aprendizado, usando arquitetura hexagonal (Ports & Adapters) e DDD tático em C# / .NET 10.
+Backend bancário construído como projeto de aprendizado, usando arquitetura hexagonal (Ports & Adapters) e DDD em C# / .NET 10.
 
 O objetivo não é o banco em si — é praticar separação de responsabilidades: o domínio (regras de negócio) nunca depende de infraestrutura (banco, JWT, HTTP), e essa direção é garantida pelo compilador, não por disciplina.
 
@@ -17,9 +17,9 @@ O objetivo não é o banco em si — é praticar separação de responsabilidade
 | 7 | Agregado `Account`, ValueObject `Money` | ✅ |
 | 8 | Persistência de `Account` + endpoints (abrir conta, depósito, saque) | ✅ |
 | 9 | Transferência entre contas (domain service, atomicidade no `IUnitOfWork`) | ✅ |
-| — | Refresh token | ⏳ |
+| 10 | Refresh token (`POST /api/v1/auth/refresh`, rotação e revogação) | ✅ |
 
-122 testes automatizados, todos passando.
+131 testes automatizados, todos passando.
 
 ## Arquitetura
 
@@ -49,12 +49,13 @@ A seta aponta para quem se depende. `Core` não referencia nenhum outro projeto 
 src/
 ├── BankingBackend.Core            → Domain puro + ports
 │   ├── Common/                    → Entity, ValueObject, Result, Error, DomainEvent
-│   ├── Users/                     → User, Cpf, Email, interfaces
+│   ├── Users/                     → User, Cpf, Email, RefreshToken, interfaces
 │   └── Accounts/                  → Account, Money, IAccountRepository
 ├── BankingBackend.Application     → Casos de uso (handlers MediatR)
 │   ├── Users/
 │   │   ├── Login/
-│   │   └── Register/
+│   │   ├── Register/
+│   │   └── Refresh/
 │   └── Accounts/
 │       ├── OpenAccount/
 │       ├── Deposit/
@@ -63,7 +64,7 @@ src/
 ├── BankingBackend.Infrastructure  → EF Core, JWT, bcrypt
 │   ├── Authentication/
 │   └── Persistence/
-│       ├── Configurations/        → Fluent API (User, Account)
+│       ├── Configurations/        → Fluent API (User, Account, RefreshToken)
 │       ├── Repositories/
 │       └── Migrations/
 └── BankingBackend.API             → Controllers, Program.cs

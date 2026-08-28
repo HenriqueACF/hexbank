@@ -7,5 +7,6 @@ public sealed class JwtSettings
     public string Audience { get; init; } = string.Empty;
     public string SecretKey { get; init; } = string.Empty;
     public int ExpirationInMinutes { get; init; } = 40;
+    public int RefreshTokenExpirationInDays { get; set; } = 7;
 
 }

@@ -22,6 +22,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IUnitOfWork>(sp =>
     sp.GetRequiredService<ApplicationDbContext>());
+builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+builder.Services.AddScoped<IRefreshTokenProvider, RefreshTokenProvider>();
 
 // ── Autenticação ───────────────────────────────
 builder.Services.Configure<JwtSettings>(

@@ -12,6 +12,8 @@ public class RegisterUserCommandHandlerTests
     private readonly Mock<IPasswordHasher> _passwordHasher = new();
     private readonly Mock<IJwtProvider> _jwtProvider = new();
     private readonly Mock<IUnitOfWork> _unitOfWork = new();
+    private readonly Mock<IRefreshTokenProvider> _refreshTokenProvider = new();
+    private readonly Mock<IRefreshTokenRepository> _refreshTokenRepository = new();
     private readonly RegisterUserCommandHandler _handler;
 
     public RegisterUserCommandHandlerTests()
@@ -21,7 +23,9 @@ public class RegisterUserCommandHandlerTests
             _passwordHasher.Object,
             _jwtProvider.Object,
             _unitOfWork.Object,
-            new RegisterUserCommandValidator());
+            new RegisterUserCommandValidator(),
+            _refreshTokenProvider.Object,
+            _refreshTokenRepository.Object);
     }
 
     private static RegisterUserCommand ValidCommand() =>
@@ -41,6 +45,9 @@ public class RegisterUserCommandHandlerTests
         _unitOfWork
             .Setup(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(1);
+        _refreshTokenProvider
+            .Setup(p => p.Create(It.IsAny<Guid>()))
+            .Returns((Guid userId) => RefreshToken.Create(userId, DateTime.UtcNow.AddDays(7)).Value);
 
         User? createdUser = null;
         _userRepository
@@ -51,6 +58,7 @@ public class RegisterUserCommandHandlerTests
 
         result.IsSuccess.Should().BeTrue();
         result.Value.AccessToken.Should().Be("token-fake");
+        result.Value.RefreshToken.Should().NotBeNullOrWhiteSpace();
         result.Value.UserId.Should().Be(createdUser!.Id);
 
         createdUser.Role.Should().Be(UserRole.Customer);
