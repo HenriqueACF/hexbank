@@ -1,9 +1,9 @@
 using System.Security.Claims;
+using BankingBackend.API.Extensions;
 using BankingBackend.Application.Accounts.Deposit;
 using BankingBackend.Application.Accounts.OpenAccount;
-using BankingBackend.Application.Accounts.Withdraw;
-using BankingBackend.Core.Common;
 using BankingBackend.Application.Accounts.Transfer;
+using BankingBackend.Application.Accounts.Withdraw;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +24,7 @@ public sealed class AccountsController : ControllerBase
     {
         var command = new OpenAccountCommand(GetCurrentUserId());
         var result = await _sender.Send(command, cancellationToken);
-        return result.IsSuccess ? Ok(result.Value) : MapError(result.Error);
+        return result.ToActionResult();
     }
 
     [HttpPost("{accountId:guid}/deposit")]
@@ -36,7 +36,7 @@ public sealed class AccountsController : ControllerBase
         var result = await _sender.Send(
             command with { AccountId = accountId, UserId = GetCurrentUserId() },
             cancellationToken);
-        return result.IsSuccess ? Ok(result.Value) : MapError(result.Error);
+        return result.ToActionResult();
     }
 
     [HttpPost("{accountId:guid}/withdraw")]
@@ -48,9 +48,9 @@ public sealed class AccountsController : ControllerBase
         var result = await _sender.Send(
             command with { AccountId = accountId, UserId = GetCurrentUserId() },
             cancellationToken);
-        return result.IsSuccess ? Ok(result.Value) : MapError(result.Error);
+        return result.ToActionResult();
     }
-    
+
     [HttpPost("{fromAccountId:guid}/transfers")]
     public async Task<IActionResult> Transfer(
         Guid fromAccountId,
@@ -60,17 +60,9 @@ public sealed class AccountsController : ControllerBase
         var result = await _sender.Send(
             command with { FromAccountId = fromAccountId, UserId = GetCurrentUserId() },
             cancellationToken);
-        return result.IsSuccess ? Ok(result.Value) : MapError(result.Error);
+        return result.ToActionResult();
     }
 
     private Guid GetCurrentUserId() =>
         Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-
-    private IActionResult MapError(Error error) => error.Code switch
-    {
-        "Account.NotFound" => NotFound(new { error.Code, error.Message }),
-        "Account.NotOwner" => StatusCode(StatusCodes.Status403Forbidden, new { error.Code, error.Message }),
-        "Account.AccountInactive" => StatusCode(StatusCodes.Status409Conflict, new { error.Code, error.Message }),
-        _ => BadRequest(new { error.Code, error.Message })
-    };
 }

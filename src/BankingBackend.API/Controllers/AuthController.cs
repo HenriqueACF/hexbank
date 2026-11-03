@@ -1,7 +1,7 @@
+using BankingBackend.API.Extensions;
 using BankingBackend.Application.Users.Login;
 using BankingBackend.Application.Users.Refresh;
 using BankingBackend.Application.Users.Register;
-using BankingBackend.Core.Common;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +21,7 @@ public sealed class AuthController : ControllerBase
         CancellationToken cancellationToken)
     {
         var result = await _sender.Send(command, cancellationToken);
-        return result.IsSuccess ? Ok(result.Value) : MapError(result.Error);
+        return result.ToActionResult();
     }
 
     [HttpPost("register")]
@@ -30,7 +30,7 @@ public sealed class AuthController : ControllerBase
         CancellationToken cancellationToken)
     {
         var result = await _sender.Send(command, cancellationToken);
-        return result.IsSuccess ? Ok(result.Value) : MapError(result.Error);
+        return result.ToActionResult();
     }
 
     [HttpPost("refresh")]
@@ -39,16 +39,6 @@ public sealed class AuthController : ControllerBase
         CancellationToken cancellationToken)
     {
         var result = await _sender.Send(command, cancellationToken);
-        return result.IsSuccess ? Ok(result.Value) : MapError(result.Error);
+        return result.ToActionResult();
     }
-
-    private IActionResult MapError(Error error) => error.Code switch
-    {
-        "RefreshToken.Invalid" => Unauthorized(new {error.Code, error.Message}),
-        "Auth.InvalidCredentials" => Unauthorized(new { error.Code, error.Message }),
-        "Auth.InactiveAccount" => StatusCode(StatusCodes.Status403Forbidden, new { error.Code, error.Message }),
-        "User.EmailAlreadyInUse" or "User.CpfAlreadyInUse" =>
-            Conflict(new { error.Code, error.Message }),
-        _ => BadRequest(new { error.Code, error.Message })
-    };
 }

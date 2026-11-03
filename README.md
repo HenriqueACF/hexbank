@@ -18,8 +18,9 @@ O objetivo não é o banco em si — é praticar separação de responsabilidade
 | 8 | Persistência de `Account` + endpoints (abrir conta, depósito, saque) | ✅ |
 | 9 | Transferência entre contas (domain service, atomicidade no `IUnitOfWork`) | ✅ |
 | 10 | Refresh token (`POST /api/v1/auth/refresh`, rotação e revogação) | ✅ |
+| 11 | Índice único em `Account.Number`, erro centralizado, middleware e Serilog | ✅ |
 
-137 testes automatizados (131 unit + 6 integração), todos passando.
+148 testes automatizados (131 unit + 17 integração), todos passando.
 
 ## Arquitetura
 
@@ -67,7 +68,7 @@ src/
 │       ├── Configurations/        → Fluent API (User, Account, RefreshToken)
 │       ├── Repositories/
 │       └── Migrations/
-└── BankingBackend.API             → Controllers, Program.cs
+└── BankingBackend.API             → Controllers, Middleware, Extensions, Program.cs
 
 tests/
 ├── BankingBackend.Tests.Unit

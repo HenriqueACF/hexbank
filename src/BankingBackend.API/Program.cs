@@ -1,18 +1,25 @@
 using System.Text;
+using BankingBackend.API.Middleware;
+using BankingBackend.Application.Users.Login;
+using BankingBackend.Application.Users.Register;
+using BankingBackend.Core.Accounts;
 using BankingBackend.Core.Common;
 using BankingBackend.Core.Users;
 using BankingBackend.Infrastructure.Authentication;
 using BankingBackend.Infrastructure.Persistence;
 using BankingBackend.Infrastructure.Persistence.Repositories;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using BankingBackend.Application.Users.Login;
-using BankingBackend.Application.Users.Register;
-using BankingBackend.Core.Accounts;
-using FluentValidation;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((_, loggerConfiguration) => loggerConfiguration
+    .MinimumLevel.Information()
+    .Enrich.FromLogContext()
+    .WriteTo.Console());
 
 // ── Banco de dados ─────────────────────────────
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -63,6 +70,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

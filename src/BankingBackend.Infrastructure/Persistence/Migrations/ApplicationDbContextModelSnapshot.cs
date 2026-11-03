@@ -53,6 +53,9 @@ namespace BankingBackend.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Number")
+                        .IsUnique();
+
                     b.ToTable("accounts", (string)null);
                 });
 

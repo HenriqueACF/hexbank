@@ -24,6 +24,8 @@ public sealed class AccountConfiguration : IEntityTypeConfiguration<Account>
 
         builder.Property(a => a.CreatedAtUtc).HasColumnName("created_at_utc").IsRequired();
 
+        builder.HasIndex(a => a.Number).IsUnique();
+        
         builder.Ignore(a => a.DomainEvents);
     }
 }
